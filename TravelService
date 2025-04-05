@@ -1,0 +1,113 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class TravelService {
+    private List<String> flights = Arrays.asList(
+        "Flight A - NYC to LA",
+        "Flight B - SF to Miami",
+        "Flight C - Chicago to Boston"
+    );
+
+    private List<String> hotels = Arrays.asList(
+        "Hotel Sunrise - NYC",
+        "Hotel Paradise - LA",
+        "Hotel Elite - Miami"
+    );
+
+    private List<String> bookedFlights = new ArrayList<>();
+    private List<String> bookedHotels = new ArrayList<>();
+
+    // Search for flights based on destination
+    public void searchFlights(String destination) {
+        System.out.println("\nSearching for flights to: " + destination);
+        boolean found = false;
+        for (String flight : flights) {
+            if (flight.toLowerCase().contains(destination.toLowerCase())) {
+                System.out.println("Found: " + flight);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No flights found to " + destination);
+        }
+    }
+
+    // Search for hotels based on location
+    public void searchHotels(String location) {
+        System.out.println("\nSearching for hotels in: " + location);
+        boolean found = false;
+        for (String hotel : hotels) {
+            if (hotel.toLowerCase().contains(location.toLowerCase())) {
+                System.out.println("Found: " + hotel);
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No hotels found in " + location);
+        }
+    }
+
+    // Book a flight
+    public void bookFlight(String flight) {
+        if (flights.contains(flight) && !bookedFlights.contains(flight)) {
+            bookedFlights.add(flight);
+            System.out.println("Flight booked: " + flight);
+        } else {
+            System.out.println("Flight not found or already booked.");
+        }
+    }
+
+    // Book a hotel
+    public void bookHotel(String hotel) {
+        if (hotels.contains(hotel) && !bookedHotels.contains(hotel)) {
+            bookedHotels.add(hotel);
+            System.out.println("Hotel booked: " + hotel);
+        } else {
+            System.out.println("Hotel not found or already booked.");
+        }
+    }
+
+    // Cancel a flight booking
+    public void cancelFlight(String flight) {
+        if (bookedFlights.remove(flight)) {
+            System.out.println("Flight reservation canceled: " + flight);
+        } else {
+            System.out.println("Flight not found in bookings.");
+        }
+    }
+
+    // Cancel a hotel booking
+    public void cancelHotel(String hotel) {
+        if (bookedHotels.remove(hotel)) {
+            System.out.println("Hotel reservation canceled: " + hotel);
+        } else {
+            System.out.println("Hotel not found in bookings.");
+        }
+    }
+
+    // View current bookings
+    public void viewBookings() {
+        System.out.println("\nYour Bookings:");
+        System.out.println("Flights: " + bookedFlights);
+        System.out.println("Hotels: " + bookedHotels);
+    }
+
+    // Main method to test the program
+    public static void main(String[] args) {
+        TravelService service = new TravelService();
+
+        service.searchFlights("Miami");
+        service.searchHotels("NYC");
+
+        service.bookFlight("Flight B - SF to Miami");
+        service.bookHotel("Hotel Sunrise - NYC");
+
+        service.viewBookings();
+
+        service.cancelFlight("Flight B - SF to Miami");
+        service.cancelHotel("Hotel Sunrise - NYC");
+
+        service.viewBookings();
+    }
+}
